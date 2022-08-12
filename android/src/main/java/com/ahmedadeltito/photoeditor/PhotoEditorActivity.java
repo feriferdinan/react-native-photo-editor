@@ -416,7 +416,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
         int permissionCheck = PermissionChecker.checkCallingOrSelfPermission(this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+
             updateView(View.GONE);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -431,6 +431,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
                     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                     String imageName = "IMG_" + timeStamp + ".jpg";
                     Intent returnIntent = new Intent();
+                    returnIntent.putExtra("kwarg", "ON_SAVE");
 
                     if (isSDCARDMounted()) {
                         String folderName = "PhotoEditorSDK";
@@ -474,9 +475,6 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
                 }
             }.start();
             Toast.makeText(this, getString(R.string.save_image_succeed), Toast.LENGTH_SHORT).show();
-        } else {
-            showPermissionRequest();
-        }
     }
 
 
